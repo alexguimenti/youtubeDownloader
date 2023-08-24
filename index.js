@@ -3,10 +3,12 @@ const cors = require('cors');
 const ytdl = require('ytdl-core');
 const app = express();
 const PORT = process.env.PORT || 3030;
+const fs = require('fs');
+var router = express.Router();
 
 app.use(cors());
-app.listen(4000, () => {
-    console.log(`Server Works !!! At port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server Works !!! At port ${PORT}`);
 });
 
 //app.get('/', (req, res) => {
@@ -16,10 +18,9 @@ app.listen(4000, () => {
 app.use(express.static(__dirname + '/public'))
 
 app.get('/download', (req,res) => {
-  console.log("TEST!")
-// var URL = req.query.URL;
-// res.header('Content-Disposition', 'attachment; filename="video.mp4"');
-// ytdl(URL, {
-//     format: 'mp4'
-//     }).pipe(res);
-});
+  var URL = req.query.url;
+  res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+  ytdl(URL, {
+      format: 'mp4'
+      }).pipe(res);
+  });
