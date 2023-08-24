@@ -5,8 +5,8 @@ const app = express();
 const PORT = process.env.PORT || 3030;
 
 app.use(cors());
-app.listen(PORT, () => {
-    console.log(`server started on port ${PORT}`);
+app.listen(4000, () => {
+    console.log('Server Works !!! At port 4000');
 });
 app.get('/download', (req,res) => {
 var URL = req.query.URL;
