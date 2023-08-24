@@ -3,17 +3,11 @@ const cors = require('cors');
 const ytdl = require('ytdl-core');
 const app = express();
 const PORT = process.env.PORT || 3030;
-const fs = require('fs');
-var router = express.Router();
 
 app.use(cors());
 app.listen(PORT, () => {
   console.log(`Server Works !!! At port ${PORT}`);
 });
-
-//app.get('/', (req, res) => {
-//  res.send("HELLO WORLD!")
-//})
 
 app.use(express.static(__dirname + '/public'))
 
