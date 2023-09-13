@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/download', (req,res) => {
   let URL = req.query.url;
-  //var URL = 'https://www.youtube.com/watch?v=mX8giSata-c'
+  console.log("URL: " + URL)
   res.header('Content-Disposition', 'attachment; filename="video.mp4"');
   ytdl(URL, {
       format: 'mp4'
