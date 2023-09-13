@@ -5,6 +5,7 @@ convertBtn.addEventListener('click', () => {
     sendURL(URLinput.value);
 });
 function sendURL(URL) {
+    console.log("RUN!")
     window.location.href = `https://youtubemex.onrender.com/download?url=${URL}`;
     //window.location.href = `http://localhost:3030/download?url=${URL}`;
 }
