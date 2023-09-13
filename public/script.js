@@ -11,6 +11,6 @@ convertBtn.addEventListener('click', () => {
     sendURL(URLinput.value);
 });
 function sendURL(URL) {
-    //window.location.href = `https://marvindowloader.onrender.com/download?url=${URL}`;
-    window.location.href = `http://localhost:3030/download?url=${URL}`;
+    window.location.href = `https://marvindowloader.onrender.com/download?url=${URL}`;
+    //window.location.href = `http://localhost:3030/download?url=${URL}`;
 }
