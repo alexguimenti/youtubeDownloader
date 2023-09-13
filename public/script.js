@@ -8,7 +8,7 @@ convertBtn.addEventListener('click', () => {
     let v = urlParams.get('v')
     let downloadUrl = `https://www.youtube.com/watch?v=${v}`
     console.log(`Download URL: ${downloadUrl}`);
-    sendURL(downloadUrl);
+    sendURL(URLinput.value);
 });
 function sendURL(URL) {
     //window.location.href = `https://marvindowloader.onrender.com/download?url=${URL}`;
