@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { exec } = require('yt-dlp-exec');
+const { spawn } = require('child_process');
 const app = express();
 const PORT = process.env.PORT || 3030;
 
@@ -26,27 +26,26 @@ app.get('/download', async (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Content-Disposition', 'attachment; filename="video.mp4"');
 
-    // Use yt-dlp para baixar o vídeo
-    const ytDlpProcess = exec(videoUrl, {
-      output: '-',
-      format: 'best',
-    });
+    // Use spawn para executar o yt-dlp diretamente
+    const ytDlpProcess = spawn('yt-dlp', ['-o', '-', '-f', 'best', videoUrl]);
 
-    // Eventos para verificar o progresso e erros
+    // Pipe o stdout para a resposta
     ytDlpProcess.stdout.pipe(res);
 
-    ytDlpProcess.stdout.on('data', (data) => {
-      console.log(`Baixando dados... Tamanho: ${data.length} bytes`);
+    // Capturar e exibir quaisquer erros do yt-dlp
+    ytDlpProcess.stderr.on('data', (data) => {
+      console.error(`Erro do yt-dlp: ${data}`);
     });
 
-    ytDlpProcess.stdout.on('end', () => {
-      console.log('Download concluído.');
+    ytDlpProcess.on('close', (code) => {
+      console.log(`Processo yt-dlp encerrado com o código ${code}`);
     });
 
     ytDlpProcess.on('error', (err) => {
       console.error('Erro ao baixar o vídeo:', err);
       res.status(500).send('Erro ao baixar o vídeo');
     });
+
   } catch (error) {
     console.error('Erro ao processar a requisição:', error);
     res.status(500).send('Erro ao baixar o vídeo');
