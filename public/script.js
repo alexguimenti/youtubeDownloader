@@ -16,7 +16,8 @@ URLinput.addEventListener('keydown', function (event) {
 function sendURL(URL) {
     try {
         console.log("Enviando URL para o servidor: " + URL);
-        window.location.href = `http://localhost:3030/download?url=${URL}`;
+        //window.location.href = `http://localhost:3030/download?url=${URL}`;
+        window.location.href = `https://marvindownloader.onrender.com/download?url=${URL}`;
     } catch (error) {
         console.error('Erro ao redirecionar para download:', error);
     }
