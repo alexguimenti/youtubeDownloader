@@ -21,15 +21,27 @@ app.get('/download', async (req, res) => {
   try {
     console.log(`Baixando o vídeo: ${videoUrl}`);
 
-    // Use yt-dlp para baixar o vídeo
-    res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+    // Definir cabeçalhos apropriados
+    res.setHeader('Content-Type', 'video/mp4');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Disposition', 'attachment; filename="video.mp4"');
 
+    // Use yt-dlp para baixar o vídeo
     const ytDlpProcess = exec(videoUrl, {
       output: '-',
       format: 'best',
     });
 
+    // Eventos para verificar o progresso e erros
     ytDlpProcess.stdout.pipe(res);
+
+    ytDlpProcess.stdout.on('data', (data) => {
+      console.log(`Baixando dados... Tamanho: ${data.length} bytes`);
+    });
+
+    ytDlpProcess.stdout.on('end', () => {
+      console.log('Download concluído.');
+    });
 
     ytDlpProcess.on('error', (err) => {
       console.error('Erro ao baixar o vídeo:', err);
