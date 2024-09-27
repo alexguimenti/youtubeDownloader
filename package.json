@@ -1,5 +1,8 @@
 {
   "name": "youtubedownloader",
+  "engines": {
+  "node": "16.x"
+},
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
